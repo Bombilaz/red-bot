@@ -1,4 +1,14 @@
 require('dotenv').config();
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'redbot',
+    password: '1234', // ваш пароль
+    port: 5432, // порт базы данных PostgreSQL
+});
+
 const http = require('node:http');
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -19,6 +29,10 @@ bot.onText(/\/start/, (msg) => {
     });
 });
 
+bot.onText(/\Пицца/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'я хачу пиццы')
+})
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
